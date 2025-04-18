@@ -64,7 +64,7 @@ export default function Header() {
           </div>
           <h1 className="text-xl md:text-2xl font-bold">
             <a href="#" className="text-gradient">
-              Natka
+              La clé du bien-être
             </a>
           </h1>
         </div>
@@ -103,22 +103,22 @@ export default function Header() {
 
         {/* Bouton menu mobile */}
         <button
-          className="md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full bg-primary-light/20 focus:outline-none"
+          className="md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full bg-white shadow-md border border-primary/30 focus:outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Menu"
         >
           <span
-            className={`block w-5 h-0.5 bg-primary-dark rounded-full transition-all duration-300 ${
+            className={`block w-5 h-0.5 bg-accent rounded-full transition-all duration-300 ${
               isMenuOpen ? "transform rotate-45 translate-y-1" : "mb-1"
             }`}
           ></span>
           <span
-            className={`block w-5 h-0.5 bg-primary-dark rounded-full transition-all duration-300 ${
+            className={`block w-5 h-0.5 bg-accent rounded-full transition-all duration-300 ${
               isMenuOpen ? "opacity-0" : "mb-1"
             }`}
           ></span>
           <span
-            className={`block w-5 h-0.5 bg-primary-dark rounded-full transition-all duration-300 ${
+            className={`block w-5 h-0.5 bg-accent rounded-full transition-all duration-300 ${
               isMenuOpen ? "transform -rotate-45 -translate-y-1" : ""
             }`}
           ></span>
