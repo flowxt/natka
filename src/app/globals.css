@@ -1,15 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #e682a5;
+  --primary-light: #ffd0e2;
+  --primary-dark: #ce4d79;
+  --secondary: #c3dafe;
+  --secondary-light: #e9f0fe;
+  --accent: #d43c88;
+  --accent-light: #e76ea3;
+  --background: #fff5f8;
+  --foreground: #3d3d3d;
+  --text-light: #5a5a5a;
+  --font-montserrat: var(--font-montserrat);
+  --card-bg: #ffffff;
+  --card-border: #ffcde0;
+  --card-hover: #fff8fa;
+  --gradient-1: #fcd1e6;
+  --gradient-2: #ffe0ed;
+  --gradient-3: #f8bcd5;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-montserrat);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +36,214 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-montserrat), Arial, sans-serif;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatingAnimation {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes gentleShimmer {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.4; }
+}
+
+@keyframes pulseSlow {
+  0% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.9; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.animate-floating {
+  animation: floatingAnimation 6s ease-in-out infinite;
+}
+
+.animate-gentle-shimmer {
+  animation: gentleShimmer 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 3s ease-in-out infinite;
+}
+
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+
+/* Nouvelle solution pour les dégradés de texte */
+.text-gradient, 
+.bg-gradient-to-r.from-primary-dark.to-accent.bg-clip-text.text-transparent {
+  background-image: linear-gradient(to right, var(--primary-dark), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* Résoudre conflit entre les classes Tailwind et nos propres classes */
+.text-gradient-purple-blue {
+  background-image: linear-gradient(to right, rgb(192, 132, 252), rgb(96, 165, 250));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.bg-gradient-custom {
+  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+}
+
+.gradient-overlay {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,208,226,0.3));
+}
+
+.button-gradient {
+  background: linear-gradient(to right, var(--primary-dark), var(--accent));
+  color: white;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.cta-button {
+  box-shadow: 0 4px 15px rgba(212, 60, 136, 0.3);
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  box-shadow: 0 6px 20px rgba(212, 60, 136, 0.4);
+  transform: translateY(-2px);
+}
+
+.card-pastel {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 10px 25px -5px rgba(230, 130, 165, 0.1), 
+              0 8px 10px -6px rgba(230, 130, 165, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.card-pastel:hover {
+  transform: translateY(-5px);
+  background-color: var(--card-hover);
+  box-shadow: 0 20px 25px -5px rgba(230, 130, 165, 0.15), 
+              0 10px 10px -5px rgba(230, 130, 165, 0.1);
+}
+
+.decorative-dots {
+  background-image: radial-gradient(var(--primary-light) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.section-title {
+  font-weight: 700;
+  color: var(--foreground);
+  position: relative;
+  display: inline-block;
+}
+
+.section-title:after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 3px;
+}
+
+.fancy-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 10px 30px -5px rgba(230, 130, 165, 0.15);
+  transition: all 0.3s ease;
+}
+
+.fancy-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+}
+
+.fancy-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px -5px rgba(230, 130, 165, 0.2);
+}
+
+.schedule-card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(230, 130, 165, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid var(--card-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px -5px rgba(230, 130, 165, 0.2);
+}
+
+.schedule-card-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+}
+
+.schedule-card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.day-label {
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.time-label {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.footer-gradient {
+  background: linear-gradient(to right, #d43c88, #b52e6e);
+}
+
+.text-shadow {
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
