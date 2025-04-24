@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { useState } from "react";
 
 export default function AboutMe() {
+  const [expandedBio, setExpandedBio] = useState(false);
+
   return (
     <section
       id="qui-suis-je"
@@ -73,53 +76,79 @@ export default function AboutMe() {
           <div className="lg:col-span-2 space-y-10">
             {/* Carte de présentation */}
             <div className="bg-gradient-to-br from-white to-primary-light/10 p-8 rounded-3xl shadow-xl border border-primary-light/20">
-              <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-primary-dark">
+              <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-pink-500">
                 Bonjour, je suis Nathalie
               </h3>
 
-              <p className="text-lg leading-relaxed mb-6">
-                Je suis passionnée par le bien-être et le soin à la personne.
-                Après 17 ans d&apos;expérience dans l&apos;horlogerie, j&apos;ai
-                décidé de donner un nouveau sens à ma carrière en me tournant
-                vers les soins énergétiques et la réflexologie, des disciplines
-                qui me permettent d&apos;allier passion et vocation.
-              </p>
+              <div
+                className={`relative overflow-hidden ${expandedBio ? "" : "max-h-[280px]"} transition-all duration-500`}
+              >
+                <div
+                  className={`${!expandedBio ? "absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent z-10" : ""}`}
+                ></div>
+                <div className="space-y-6">
+                  <p className="text-lg leading-relaxed">
+                    Je suis passionnée par le bien-être et le soin à la
+                    personne. Après 17 ans d&apos;expérience dans
+                    l&apos;horlogerie, j&apos;ai décidé de donner un nouveau
+                    sens à ma carrière en me tournant vers les soins
+                    énergétiques et la réflexologie, des disciplines qui me
+                    permettent d&apos;allier passion et vocation.
+                  </p>
 
-              <p className="text-lg leading-relaxed mb-6">
-                Dès mon plus jeune âge, j&apos;étais fascinée par l&apos;idée de
-                prendre soin des autres. Mon rêve d&apos;être infirmière ne
-                s&apos;est pas concrétisé, mais la vie m&apos;a offert une autre
-                voie tout aussi enrichissante. Après des années en logistique,
-                et suite à des problèmes de santé qui m&apos;ont fait découvrir
-                les bienfaits des thérapies douces, j&apos;ai ressenti le besoin
-                profond de me réorienter vers des pratiques qui apportent un
-                réel bien-être.
-              </p>
+                  <p className="text-lg leading-relaxed">
+                    Dès mon plus jeune âge, j&apos;étais fascinée par
+                    l&apos;idée de prendre soin des autres. Mon rêve d&apos;être
+                    infirmière ne s&apos;est pas concrétisé, mais la vie
+                    m&apos;a offert une autre voie tout aussi enrichissante.
+                    Après des années en logistique, et suite à des problèmes de
+                    santé qui m&apos;ont fait découvrir les bienfaits des
+                    thérapies douces, j&apos;ai ressenti le besoin profond de me
+                    réorienter vers des pratiques qui apportent un réel
+                    bien-être.
+                  </p>
 
-              <p className="text-lg leading-relaxed mb-6">
-                Aujourd&apos;hui, je suis praticienne certifiée en réflexologie,
-                une méthode douce qui m&apos;a immédiatement séduite par son
-                efficacité sur de nombreuses pathologies. J&apos;ai également
-                suivi des formations en magnétisme et en soin énergétique, des
-                techniques que j&apos;affine chaque jour pour vous offrir un
-                accompagnement sur mesure, adapté à vos besoins.
-              </p>
+                  <p className="text-lg leading-relaxed">
+                    Aujourd&apos;hui, je suis praticienne certifiée en
+                    réflexologie, une méthode douce qui m&apos;a immédiatement
+                    séduite par son efficacité sur de nombreuses pathologies.
+                    J&apos;ai également suivi des formations en magnétisme et en
+                    soin énergétique, des techniques que j&apos;affine chaque
+                    jour pour vous offrir un accompagnement sur mesure, adapté à
+                    vos besoins.
+                  </p>
 
-              <p className="text-lg leading-relaxed mb-6">
-                Ma priorité est votre bien-être. Que vous souhaitiez apaiser des
-                douleurs physiques ou émotionnelles, ou simplement prendre un
-                moment pour vous reconnecter à vous-même, je suis là pour vous
-                guider. En poursuivant des formations régulières, je
-                m&apos;assure de vous proposer des soins adaptés, alliant
-                expertise et écoute.
-              </p>
+                  <p className="text-lg leading-relaxed">
+                    Ma priorité est votre bien-être. Que vous souhaitiez apaiser
+                    des douleurs physiques ou émotionnelles, ou simplement
+                    prendre un moment pour vous reconnecter à vous-même, je suis
+                    là pour vous guider. En poursuivant des formations
+                    régulières, je m&apos;assure de vous proposer des soins
+                    adaptés, alliant expertise et écoute.
+                  </p>
 
-              <p className="text-lg leading-relaxed mb-6">
-                Laissez-moi vous accompagner vers un mieux-être global, avec des
-                méthodes naturelles et bienveillantes.
-              </p>
+                  <p className="text-lg leading-relaxed">
+                    Laissez-moi vous accompagner vers un mieux-être global, avec
+                    des méthodes naturelles et bienveillantes.
+                  </p>
+                </div>
+              </div>
 
               <div className="flex justify-center mt-8">
+                <button
+                  onClick={() => setExpandedBio(!expandedBio)}
+                  className="button-gradient px-6 py-2 rounded-full shadow-md hover:shadow-lg transition-all flex items-center gap-2 mb-6 text-white"
+                >
+                  {expandedBio ? "Réduire" : "Lire plus"}
+                  <span
+                    className={`transform transition-transform duration-300 ${expandedBio ? "rotate-180" : ""}`}
+                  >
+                    ▼
+                  </span>
+                </button>
+              </div>
+
+              <div className="flex justify-center">
                 <a
                   href="#contact"
                   className="button-gradient py-3 px-8 rounded-full text-white font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-shadow"
@@ -134,10 +163,10 @@ export default function AboutMe() {
               {/* Expertises */}
               <div className="bg-white p-6 rounded-3xl shadow-xl border border-primary-light/20 h-full">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-primary-light/30 flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mr-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-primary-dark"
+                      className="h-6 w-6 text-pink-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -148,7 +177,7 @@ export default function AboutMe() {
                       />
                     </svg>
                   </div>
-                  <h4 className="text-xl font-semibold text-primary-dark">
+                  <h4 className="text-xl font-semibold text-pink-500">
                     Mes expertises
                   </h4>
                 </div>
@@ -162,10 +191,12 @@ export default function AboutMe() {
                     "Accompagnement spécifique en oncologie",
                   ].map((expertise, index) => (
                     <li key={index} className="flex items-start">
-                      <span className="text-accent text-xl mr-2 transform -translate-y-1">
+                      <span className="text-pink-500 text-xl mr-2 transform -translate-y-1">
                         •
                       </span>
-                      <span className="text-foreground/90">{expertise}</span>
+                      <span className="text-gray-700 hover:text-pink-500 cursor-pointer">
+                        {expertise}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -201,17 +232,17 @@ export default function AboutMe() {
             {/* Formations et parcours */}
             <div className="bg-white p-6 rounded-3xl shadow-xl border border-primary-light/20">
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary-light/30 flex items-center justify-center mr-4">
+                <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mr-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-primary-dark"
+                    className="h-6 w-6 text-pink-500"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
                     <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
                   </svg>
                 </div>
-                <h4 className="text-xl font-semibold text-primary-dark">
+                <h4 className="text-xl font-semibold text-pink-500">
                   Mon parcours de formation
                 </h4>
               </div>
@@ -223,20 +254,20 @@ export default function AboutMe() {
                   </h5>
                   <ul className="space-y-2 mt-2">
                     <li className="flex flex-col">
-                      <span className="text-foreground/90">
+                      <span className="text-gray-700 hover:text-pink-500 cursor-pointer">
                         Praticien en réflexologie plantaire, palmaire et
                         pédiatrique - Septembre 2022 à 2023
                       </span>
-                      <span className="text-foreground/70 text-sm">
+                      <span className="text-gray-500 text-sm">
                         Centre de formation Réflexo Naturel à La Roche sur Foron
                         (Léopoldine Coupry)
                       </span>
                     </li>
                     <li className="flex flex-col">
-                      <span className="text-foreground/90">
+                      <span className="text-gray-700 hover:text-pink-500 cursor-pointer">
                         Réflexologie et Oncologie - Février 2024
                       </span>
-                      <span className="text-foreground/70 text-sm">
+                      <span className="text-gray-500 text-sm">
                         Centre de formation Réflexo Naturel à La Roche sur Foron
                         (Fanny Blanc)
                       </span>
@@ -250,19 +281,19 @@ export default function AboutMe() {
                   </h5>
                   <ul className="space-y-2 mt-2">
                     <li className="flex flex-col">
-                      <span className="text-foreground/90">
+                      <span className="text-gray-700 hover:text-pink-500 cursor-pointer">
                         Formation au magnétisme - Octobre 2022
                       </span>
-                      <span className="text-foreground/70 text-sm">
+                      <span className="text-gray-500 text-sm">
                         CAP Liberté, Sérénité, Vitalité à La Roche sur Foron
                         (Patricia Pasquier)
                       </span>
                     </li>
                     <li className="flex flex-col">
-                      <span className="text-foreground/90">
+                      <span className="text-gray-700 hover:text-pink-500 cursor-pointer">
                         Initiation à l&apos;Énergétique - Avril à Juin 2023
                       </span>
-                      <span className="text-foreground/70 text-sm">
+                      <span className="text-gray-500 text-sm">
                         Modules : Énergie vitale, Soin énergétique, Nettoyage
                         énergétique - La Roche Sur Foron (Lucie Bourgoin)
                       </span>
@@ -276,19 +307,19 @@ export default function AboutMe() {
                   </h5>
                   <ul className="space-y-2 mt-2">
                     <li className="flex flex-col">
-                      <span className="text-foreground/90">
+                      <span className="text-gray-700 hover:text-pink-500 cursor-pointer">
                         Massage de ventre Chi Nei Tsang - Octobre 2024
                       </span>
-                      <span className="text-foreground/70 text-sm">
+                      <span className="text-gray-500 text-sm">
                         Bien être en formation, à Reignier-Esery (Béatrice
                         Vachoux)
                       </span>
                     </li>
                     <li className="flex flex-col">
-                      <span className="text-foreground/90">
+                      <span className="text-gray-700 hover:text-pink-500 cursor-pointer">
                         Drainage lymphatique - Février 2025
                       </span>
-                      <span className="text-foreground/70 text-sm">
+                      <span className="text-gray-500 text-sm">
                         Bien-être en formation, à Reignier-Esery (Béatrice
                         Vachoux)
                       </span>

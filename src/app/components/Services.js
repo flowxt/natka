@@ -5,6 +5,15 @@ import { services } from "./data";
 export default function Services() {
   const [activeService, setActiveService] = useState(null);
   const [activeTab, setActiveTab] = useState("description");
+  const [expandedCards, setExpandedCards] = useState([]);
+
+  const toggleCardExpansion = (serviceId) => {
+    if (expandedCards.includes(serviceId)) {
+      setExpandedCards(expandedCards.filter((id) => id !== serviceId));
+    } else {
+      setExpandedCards([...expandedCards, serviceId]);
+    }
+  };
 
   return (
     <section
@@ -539,7 +548,7 @@ export default function Services() {
           {services.map((service, index) => (
             <div
               key={service.id}
-              className="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in h-full flex flex-col"
+              className="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in flex flex-col h-full"
               style={{ animationDelay: `${0.05 * (index + 1)}s` }}
             >
               <div className="h-2 bg-gradient-to-r from-primary to-accent"></div>
@@ -559,9 +568,9 @@ export default function Services() {
                   </p>
                 </div>
 
-                <p className="text-sm text-text-light line-clamp-3 mb-4">
-                  {service.description.substring(0, 100)}...
-                </p>
+                <div className="text-sm text-text-light mb-4 overflow-auto flex-grow">
+                  <p>{service.description}</p>
+                </div>
 
                 <div className="mt-auto flex justify-between items-center pt-3 border-t border-primary-light/20">
                   <a
@@ -570,18 +579,24 @@ export default function Services() {
                   >
                     Réserver <span className="ml-1">→</span>
                   </a>
-                  <button
-                    onClick={() =>
-                      setActiveService(
-                        activeService === service.id ? null : service.id
-                      )
-                    }
-                    className="text-accent-light hover:text-accent transition-colors text-xs"
-                  >
-                    {activeService === service.id
-                      ? "Moins d'infos"
-                      : "Plus d'infos"}
-                  </button>
+                  {(service.forfait ||
+                    service.forfaits ||
+                    service.details ||
+                    service.note) &&
+                    service.id !== "drainage-lymphatique" && (
+                      <button
+                        onClick={() =>
+                          setActiveService(
+                            activeService === service.id ? null : service.id
+                          )
+                        }
+                        className="text-accent-light hover:text-accent transition-colors text-xs"
+                      >
+                        {activeService === service.id
+                          ? "Moins d'infos"
+                          : "Plus d'infos"}
+                      </button>
+                    )}
                 </div>
 
                 {activeService === service.id && (
@@ -592,6 +607,15 @@ export default function Services() {
                           Forfait :
                         </span>{" "}
                         {service.forfait.split("-")[1]}
+                      </div>
+                    )}
+
+                    {service.note && (
+                      <div className="mb-2 text-xs text-text-light bg-secondary-light/10 p-2 rounded">
+                        <span className="font-medium text-primary-dark">
+                          Note :
+                        </span>{" "}
+                        {service.note}
                       </div>
                     )}
 
