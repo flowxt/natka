@@ -3,13 +3,15 @@ import { useState } from "react";
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     nom: "",
-    contact: "",
+    email: "",
+    telephone: "",
     message: "",
     consent: false,
   });
 
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [activeField, setActiveField] = useState(null);
 
   const handleInputChange = (e) => {
@@ -20,21 +22,43 @@ export default function ContactForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validation basique
     const newErrors = {};
     if (!formData.nom.trim()) newErrors.nom = "Le nom est requis";
-    if (!formData.contact.trim())
-      newErrors.contact = "L'adresse mail ou téléphone est requise";
+    if (!formData.email.trim() && !formData.telephone.trim())
+      newErrors.email = "L'email ou le téléphone est requis";
     if (!formData.consent)
       newErrors.consent = "Veuillez accepter les conditions";
 
     if (Object.keys(newErrors).length === 0) {
-      // Simulation d'envoi réussi
-      setFormSubmitted(true);
-      // En production, vous ajouteriez ici l'appel à votre API pour envoyer l'email
+      setLoading(true);
+
+      try {
+        // Appel de l'API pour envoyer l'email
+        const response = await fetch("/api/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          setFormSubmitted(true);
+        } else {
+          throw new Error("Erreur lors de l'envoi du message");
+        }
+      } catch (error) {
+        console.error("Erreur:", error);
+        newErrors.general =
+          "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer.";
+      } finally {
+        setLoading(false);
+        setErrors(newErrors);
+      }
     } else {
       setErrors(newErrors);
     }
@@ -181,8 +205,8 @@ export default function ContactForm() {
                         errors.nom
                           ? "border-red-400"
                           : activeField === "nom"
-                          ? "border-accent shadow-md"
-                          : "border-primary-light/30"
+                            ? "border-accent shadow-md"
+                            : "border-primary-light/30"
                       } focus:outline-none focus:ring-0 bg-white shadow-sm transition-all duration-300`}
                       placeholder="Votre nom"
                     />
@@ -226,10 +250,10 @@ export default function ContactForm() {
                   )}
                 </div>
 
-                {/* Contact */}
+                {/* Email */}
                 <div
                   className={`transition-all duration-300 ${
-                    activeField === "contact" ? "scale-[1.02]" : ""
+                    activeField === "email" ? "scale-[1.02]" : ""
                   }`}
                 >
                   <div className="flex items-center mb-2 font-medium text-primary-dark">
@@ -247,31 +271,29 @@ export default function ContactForm() {
                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                       />
                     </svg>
-                    <label htmlFor="contact">
-                      Contact<span className="text-accent">*</span>
-                    </label>
+                    <label htmlFor="email">Email</label>
                   </div>
                   <div className="relative">
                     <input
-                      type="text"
-                      id="contact"
-                      name="contact"
-                      value={formData.contact}
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
                       onChange={handleInputChange}
-                      onFocus={() => handleFocus("contact")}
+                      onFocus={() => handleFocus("email")}
                       onBlur={handleBlur}
                       className={`w-full px-5 py-4 pl-12 rounded-xl border-2 ${
-                        errors.contact
+                        errors.email
                           ? "border-red-400"
-                          : activeField === "contact"
-                          ? "border-accent shadow-md"
-                          : "border-primary-light/30"
+                          : activeField === "email"
+                            ? "border-accent shadow-md"
+                            : "border-primary-light/30"
                       } focus:outline-none focus:ring-0 bg-white shadow-sm transition-all duration-300`}
-                      placeholder="Votre email ou téléphone"
+                      placeholder="Votre email"
                     />
                     <div
                       className={`absolute left-4 top-4 transition-all duration-300 ${
-                        activeField === "contact"
+                        activeField === "email"
                           ? "text-accent scale-110"
                           : "text-primary/60"
                       }`}
@@ -287,7 +309,7 @@ export default function ContactForm() {
                       </svg>
                     </div>
                   </div>
-                  {errors.contact && (
+                  {errors.email && (
                     <p className="text-red-500 text-sm mt-1 flex items-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -301,7 +323,84 @@ export default function ContactForm() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      {errors.contact}
+                      {errors.email}
+                    </p>
+                  )}
+                </div>
+
+                {/* Téléphone */}
+                <div
+                  className={`transition-all duration-300 ${
+                    activeField === "telephone" ? "scale-[1.02]" : ""
+                  }`}
+                >
+                  <div className="flex items-center mb-2 font-medium text-primary-dark">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 mr-2 text-accent"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    <label htmlFor="telephone">Téléphone</label>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      id="telephone"
+                      name="telephone"
+                      value={formData.telephone}
+                      onChange={handleInputChange}
+                      onFocus={() => handleFocus("telephone")}
+                      onBlur={handleBlur}
+                      className={`w-full px-5 py-4 pl-12 rounded-xl border-2 ${
+                        errors.telephone
+                          ? "border-red-400"
+                          : activeField === "telephone"
+                            ? "border-accent shadow-md"
+                            : "border-primary-light/30"
+                      } focus:outline-none focus:ring-0 bg-white shadow-sm transition-all duration-300`}
+                      placeholder="Votre numéro de téléphone"
+                    />
+                    <div
+                      className={`absolute left-4 top-4 transition-all duration-300 ${
+                        activeField === "telephone"
+                          ? "text-accent scale-110"
+                          : "text-primary/60"
+                      }`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                      </svg>
+                    </div>
+                  </div>
+                  {errors.telephone && (
+                    <p className="text-red-500 text-sm mt-1 flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 mr-1"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {errors.telephone}
                     </p>
                   )}
                 </div>
@@ -339,11 +438,13 @@ export default function ContactForm() {
                       onBlur={handleBlur}
                       rows="4"
                       className={`w-full px-5 py-4 pl-12 rounded-xl border-2 ${
-                        activeField === "message"
-                          ? "border-accent shadow-md"
-                          : "border-primary-light/30"
-                      } focus:outline-none focus:ring-0 resize-none bg-white shadow-sm transition-all duration-300`}
-                      placeholder="Dites-moi ce dont vous avez besoin"
+                        errors.message
+                          ? "border-red-400"
+                          : activeField === "message"
+                            ? "border-accent shadow-md"
+                            : "border-primary-light/30"
+                      } focus:outline-none focus:ring-0 bg-white shadow-sm transition-all duration-300 resize-none`}
+                      placeholder="Votre message (facultatif)"
                     ></textarea>
                     <div
                       className={`absolute left-4 top-4 transition-all duration-300 ${
@@ -369,42 +470,31 @@ export default function ContactForm() {
                 </div>
 
                 {/* Consentement */}
-                <div className="bg-gradient-to-r from-primary-light/10 to-accent-light/5 p-4 rounded-xl border border-primary-light/20">
-                  <label className="flex items-start cursor-pointer group">
-                    <div className="relative flex items-center mt-1">
+                <div className="mt-6">
+                  <div className="flex items-start">
+                    <div className="flex items-center h-5">
                       <input
-                        type="checkbox"
+                        id="consent"
                         name="consent"
+                        type="checkbox"
                         checked={formData.consent}
                         onChange={handleInputChange}
-                        className="opacity-0 absolute h-6 w-6"
+                        className="focus:ring-primary-dark h-5 w-5 text-primary border-2 border-primary-light/30 rounded accent-primary"
                       />
-                      <div
-                        className={`border-2 rounded-md w-6 h-6 flex flex-shrink-0 justify-center items-center mr-3 ${
-                          formData.consent
-                            ? "bg-primary border-transparent"
-                            : "bg-white border-primary-light/50 group-hover:border-accent/50"
-                        } transition-all duration-300`}
-                      >
-                        {formData.consent && (
-                          <svg
-                            className="fill-white w-4 h-4 pointer-events-none"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
-                          </svg>
-                        )}
-                      </div>
                     </div>
-                    <span className="text-sm text-foreground/80">
-                      Je consens par la présente à ce que mes données soient
-                      stockées et traitées pour établir un contact. Je sais que
-                      je peux révoquer mon consentement à tout moment.
-                      <span className="text-accent">*</span>
-                    </span>
-                  </label>
+                    <div className="ml-3 text-sm">
+                      <label
+                        htmlFor="consent"
+                        className="font-medium text-foreground/80"
+                      >
+                        J&apos;accepte que mes informations personnelles soient
+                        stockées et traitées pour établir un contact. Je sais
+                        que je peux me rétracter à tout moment.
+                      </label>
+                    </div>
+                  </div>
                   {errors.consent && (
-                    <p className="text-red-500 text-sm mt-1 ml-9 flex items-center">
+                    <p className="text-red-500 text-sm mt-1 flex items-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-4 w-4 mr-1"
@@ -422,37 +512,73 @@ export default function ContactForm() {
                   )}
                 </div>
 
-                {/* Bouton d'envoi */}
-                <button
-                  type="submit"
-                  className="w-full button-gradient py-4 px-6 rounded-xl text-white font-medium shadow-lg hover:shadow-xl hover:scale-[1.02] text-shadow transition-all duration-300 flex items-center justify-center"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 mr-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                    />
-                  </svg>
-                  Envoyer ma demande
-                </button>
+                {errors.general && (
+                  <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+                    {errors.general}
+                  </div>
+                )}
 
-                {/* Options de contact alternatif */}
-                <div className="flex flex-col md:flex-row gap-4 mt-6 pt-6 border-t border-primary-light/30">
-                  <a
-                    href="tel:+33123456789"
-                    className="flex items-center justify-center md:justify-start gap-2 px-4 py-2 rounded-full bg-white border border-primary-light hover:bg-primary-light/10 transition-all text-primary-dark text-sm"
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full py-4 px-6 rounded-xl button-gradient text-white font-bold text-lg transform transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 active:scale-[0.98]"
                   >
+                    <div className="flex items-center justify-center">
+                      {loading ? (
+                        <svg
+                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 mr-2"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                          />
+                        </svg>
+                      )}
+                      <span>
+                        {loading
+                          ? "Envoi en cours..."
+                          : "Envoyer votre message"}
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              </form>
+
+              {/* Options de contact alternatif */}
+              <div className="mt-8 pt-6 border-t border-primary-light/20 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div className="flex items-center">
+                  <div className="bg-primary/10 rounded-full p-3 mr-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-accent"
+                      className="h-6 w-6 text-primary"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -464,15 +590,20 @@ export default function ContactForm() {
                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                       />
                     </svg>
-                    +33 (0)6 01 49 93 27
-                  </a>
+                  </div>
                   <a
-                    href="mailto:contact@natka-bien-etre.fr"
-                    className="flex items-center justify-center md:justify-start gap-2 px-4 py-2 rounded-full bg-white border border-primary-light hover:bg-primary-light/10 transition-all text-primary-dark text-sm"
+                    href="tel:+33760351575"
+                    className="text-primary-dark hover:text-primary transition-colors"
                   >
+                    06 01 49 93 27
+                  </a>
+                </div>
+
+                <div className="flex items-center">
+                  <div className="bg-primary/10 rounded-full p-3 mr-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-accent"
+                      className="h-6 w-6 text-primary"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -484,10 +615,15 @@ export default function ContactForm() {
                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                       />
                     </svg>
-                    nathalieboupha@gmail.com
+                  </div>
+                  <a
+                    href="mailto:nathaliebouph@gmail.com"
+                    className="text-primary-dark hover:text-primary transition-colors"
+                  >
+                    nathaliebouph@gmail.com
                   </a>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         )}
