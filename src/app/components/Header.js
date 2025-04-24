@@ -36,11 +36,41 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fonction pour fermer le menu après la navigation
-  const handleNavClick = (section) => {
-    setActiveSection(section);
-    setIsMenuOpen(false);
+  // Fonction pour le défilement fluide et fermeture du menu
+  const handleNavClick = (e, section) => {
+    e.preventDefault();
+
+    const targetElement = document.getElementById(section);
+    if (targetElement) {
+      // Calcul de la position de défilement en tenant compte de l'en-tête fixe
+      const headerHeight = document.querySelector("header").offsetHeight;
+      const targetPosition =
+        targetElement.getBoundingClientRect().top +
+        window.pageYOffset -
+        headerHeight;
+
+      // Animation de défilement fluide
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+
+      // Mise à jour de la section active
+      setActiveSection(section);
+
+      // Fermeture du menu mobile
+      setIsMenuOpen(false);
+    }
   };
+
+  // Définition des menus dans l'ordre correct
+  const menuItems = [
+    { id: "accueil", label: "Accueil" },
+    { id: "qui-suis-je", label: "À propos" },
+    { id: "services", label: "Services" },
+    { id: "formules", label: "Formules" },
+    { id: "contact", label: "Contact" },
+  ];
 
   return (
     <header
@@ -71,31 +101,29 @@ export default function Header() {
 
         {/* Navigation Desktop */}
         <nav className="hidden md:flex space-x-1">
-          {["accueil", "services", "formules", "qui-suis-je", "contact"].map(
-            (section) => (
-              <a
-                key={section}
-                href={`#${section}`}
-                onClick={() => handleNavClick(section)}
-                className={`px-4 py-2 rounded-full transition-all duration-300 relative ${
-                  activeSection === section
-                    ? "text-black font-medium text-shadow"
-                    : "text-foreground hover:text-accent"
-                }`}
-              >
-                {activeSection === section && (
-                  <span className="absolute inset-0 bg-gradient-to-r from-primary-dark to-accent rounded-full -z-10 animate-fade-in shadow-md"></span>
-                )}
-                {section.charAt(0).toUpperCase() +
-                  section.slice(1).replace(/-/g, " ")}
-              </a>
-            )
-          )}
+          {menuItems.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              onClick={(e) => handleNavClick(e, item.id)}
+              className={`px-4 py-2 rounded-full transition-all duration-300 relative ${
+                activeSection === item.id
+                  ? "text-black font-medium text-shadow"
+                  : "text-foreground hover:text-accent"
+              }`}
+            >
+              {activeSection === item.id && (
+                <span className="absolute inset-0 bg-gradient-to-r from-primary-dark to-accent rounded-full -z-10 animate-fade-in shadow-md"></span>
+              )}
+              {item.label}
+            </a>
+          ))}
         </nav>
 
         {/* Bouton CTA */}
         <a
           href="#contact"
+          onClick={(e) => handleNavClick(e, "contact")}
           className="hidden md:block button-gradient px-6 py-2 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-shadow"
         >
           Prendre rendez-vous
@@ -133,26 +161,24 @@ export default function Header() {
       >
         <div className="container mx-auto px-4 py-2">
           <nav className="flex flex-col divide-y divide-primary-light/20">
-            {["accueil", "services", "formules", "qui-suis-je", "contact"].map(
-              (section) => (
-                <a
-                  key={section}
-                  href={`#${section}`}
-                  onClick={() => handleNavClick(section)}
-                  className={`py-3 transition-colors ${
-                    activeSection === section
-                      ? "text-accent font-medium"
-                      : "text-foreground"
-                  }`}
-                >
-                  {section.charAt(0).toUpperCase() +
-                    section.slice(1).replace(/-/g, " ")}
-                </a>
-              )
-            )}
+            {menuItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => handleNavClick(e, item.id)}
+                className={`py-3 transition-colors ${
+                  activeSection === item.id
+                    ? "text-accent font-medium"
+                    : "text-foreground"
+                }`}
+              >
+                {item.id === "qui-suis-je" ? "Qui suis-je" : item.label}
+              </a>
+            ))}
             <div className="py-4">
               <a
                 href="#contact"
+                onClick={(e) => handleNavClick(e, "contact")}
                 className="button-gradient block text-center py-3 px-6 rounded-full text-shadow"
               >
                 Prendre rendez-vous

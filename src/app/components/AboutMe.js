@@ -146,24 +146,27 @@ export default function AboutMe() {
               </div>
 
               {/* Espace de soins */}
-              <div className="bg-white p-2 rounded-3xl shadow-xl border border-primary-light/20 overflow-hidden h-full">
-                <div className="relative h-full">
+              <div className="bg-white p-2 rounded-3xl shadow-xl border border-primary-light/20 overflow-hidden flex">
+                <div className="relative w-full h-full min-h-[300px] md:min-h-[320px]">
                   <Image
                     src="/image/salon-natka.jpg"
                     alt="Espace de soins Natka"
-                    width={600}
-                    height={400}
-                    className="w-full h-full object-cover rounded-2xl"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover rounded-2xl"
+                    priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/80 to-transparent flex flex-col justify-end p-6">
-                    <h4 className="text-white text-xl font-semibold mb-2">
-                      Mon espace de soins
-                    </h4>
-                    <p className="text-white/90 text-base backdrop-blur-sm bg-primary-dark/20 p-3 rounded-xl">
-                      Un havre de paix conçu pour votre bien-être et votre
-                      confort. Chaque détail a été pensé pour vous offrir une
-                      expérience apaisante.
-                    </p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/90 via-primary-dark/50 to-transparent">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                      <h4 className="text-white text-xl sm:text-2xl font-semibold mb-2 drop-shadow-md">
+                        Mon espace de soins
+                      </h4>
+                      <p className="text-white/90 text-sm sm:text-base backdrop-blur-sm bg-primary-dark/30 p-3 rounded-xl shadow-md">
+                        Un havre de paix conçu pour votre bien-être et votre
+                        confort. Chaque détail a été pensé pour vous offrir une
+                        expérience apaisante.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
