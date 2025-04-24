@@ -25,13 +25,13 @@ export default function Services() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-xl mx-auto text-center mb-16">
-          <span className="inline-block px-4 py-1 bg-white/70 backdrop-blur-sm rounded-full text-accent mb-4 shadow-sm">
+          <span className="inline-block px-4 py-1 bg-white/70 backdrop-blur-sm rounded-full text-pink-600 mb-4 shadow-sm">
             Nos soins
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-gradient">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-pink-600">
             Découvrez nos services de bien-être
           </h2>
-          <p className="text-text-light">
+          <p className="text-gray-700">
             Des soins personnalisés pour votre équilibre et votre santé
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function Services() {
                   className="rounded-full object-cover"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-primary-dark">
+              <h3 className="text-2xl font-bold text-pink-600">
                 Qu&apos;est-ce que la Réflexologie ?
               </h3>
             </div>
@@ -57,12 +57,12 @@ export default function Services() {
 
           <div className="p-6">
             {/* Navigation par onglets */}
-            <div className="flex flex-wrap gap-2 mb-6 border-b border-primary-light/20 pb-2 overflow-x-auto">
+            <div className="flex flex-wrap gap-2 mb-6 border-b border-pink-200 pb-2 overflow-x-auto">
               <button
                 className={`px-4 py-2 rounded-t-lg transition-colors ${
                   activeTab === "description"
-                    ? "bg-primary-light/30 text-primary-dark font-medium"
-                    : "text-foreground hover:bg-primary-light/10"
+                    ? "bg-pink-100 text-pink-600 font-medium"
+                    : "text-gray-700 hover:bg-pink-50"
                 }`}
                 onClick={() => setActiveTab("description")}
               >
@@ -71,8 +71,8 @@ export default function Services() {
               <button
                 className={`px-4 py-2 rounded-t-lg transition-colors ${
                   activeTab === "indications"
-                    ? "bg-primary-light/30 text-primary-dark font-medium"
-                    : "text-foreground hover:bg-primary-light/10"
+                    ? "bg-pink-100 text-pink-600 font-medium"
+                    : "text-gray-700 hover:bg-pink-50"
                 }`}
                 onClick={() => setActiveTab("indications")}
               >
@@ -81,8 +81,8 @@ export default function Services() {
               <button
                 className={`px-4 py-2 rounded-t-lg transition-colors ${
                   activeTab === "contreindications"
-                    ? "bg-primary-light/30 text-primary-dark font-medium"
-                    : "text-foreground hover:bg-primary-light/10"
+                    ? "bg-pink-100 text-pink-600 font-medium"
+                    : "text-gray-700 hover:bg-pink-50"
                 }`}
                 onClick={() => setActiveTab("contreindications")}
               >
@@ -91,8 +91,8 @@ export default function Services() {
               <button
                 className={`px-4 py-2 rounded-t-lg transition-colors ${
                   activeTab === "seance"
-                    ? "bg-primary-light/30 text-primary-dark font-medium"
-                    : "text-foreground hover:bg-primary-light/10"
+                    ? "bg-pink-100 text-pink-600 font-medium"
+                    : "text-gray-700 hover:bg-pink-50"
                 }`}
                 onClick={() => setActiveTab("seance")}
               >
@@ -101,8 +101,8 @@ export default function Services() {
               <button
                 className={`px-4 py-2 rounded-t-lg transition-colors ${
                   activeTab === "bienfaits"
-                    ? "bg-primary-light/30 text-primary-dark font-medium"
-                    : "text-foreground hover:bg-primary-light/10"
+                    ? "bg-pink-100 text-pink-600 font-medium"
+                    : "text-gray-700 hover:bg-pink-50"
                 }`}
                 onClick={() => setActiveTab("bienfaits")}
               >
@@ -114,24 +114,36 @@ export default function Services() {
             <div className="animate-fade-in">
               {activeTab === "description" && (
                 <div className="space-y-4">
-                  <p className="text-text-light leading-relaxed">
+                  <p className="text-gray-700 leading-relaxed">
                     La réflexologie est une technique manuelle qui considère les
                     pieds ou les mains, comme la représentation du corps humain
                     et de tout ce qui le compose.
                   </p>
-                  <p className="text-text-light leading-relaxed">
+                  <p className="text-gray-700 leading-relaxed">
                     On retrouve sur les pieds des zones et des points appelés
-                    réflexes. En venant faire une pression sur un point réflexe
-                    ou une zone réflexe, cela crée un influx nerveux qui va
-                    induire dans l&apos;organisme des réactions physiologiques
+                    <span className="text-pink-600"> réflexes</span>. En venant
+                    faire une pression sur un point réflexe ou une zone réflexe,
+                    cela crée un{" "}
+                    <span className="text-pink-500">influx nerveux</span> qui va
+                    induire dans l&apos;organisme des{" "}
+                    <span className="text-pink-600">
+                      réactions physiologiques{" "}
+                    </span>
                     adaptées aux dérèglements de l&apos;organe, de la glande ou
                     d&apos;une partie spécifique du corps.
                   </p>
-                  <p className="text-text-light leading-relaxed">
-                    Ainsi la réflexologie permet au corps de s&apos;autoréguler
-                    et active le process d&apos;auto-guérison, afin que le corps
-                    retrouve son équilibre naturel, que l&apos;on appel
-                    Homéostasie.
+                  <p className="text-gray-700 leading-relaxed">
+                    Ainsi la réflexologie permet au corps de{" "}
+                    <span className="text-pink-500">s&apos;autoréguler </span>
+                    et active le process{" "}
+                    <span className="text-pink-600">d&apos;auto-guérison</span>,
+                    afin que le corps retrouve son équilibre naturel, que
+                    l&apos;on appel
+                    <span className="text-pink-600 font-medium">
+                      {" "}
+                      Homéostasie
+                    </span>
+                    .
                   </p>
                   <div className="flex justify-center mt-6">
                     <Image
@@ -154,105 +166,105 @@ export default function Services() {
 
                   <div className="grid md:grid-cols-3 gap-6 mt-4">
                     <div className="bg-primary-light/10 p-5 rounded-xl shadow-sm">
-                      <h4 className="text-lg font-semibold text-primary-dark mb-3 flex items-center">
-                        <span className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mr-2 text-xs text-accent">
+                      <h4 className="text-lg font-semibold text-pink-600 mb-3 flex items-center">
+                        <span className="w-6 h-6 rounded-full bg-pink-100 flex items-center justify-center mr-2 text-xs text-pink-500">
                           ✓
                         </span>
                         Pour les adultes
                       </h4>
-                      <ul className="space-y-1.5 list-inside text-text-light text-sm">
+                      <ul className="space-y-1.5 list-inside text-gray-700 text-sm">
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Maux de tête, stress, épilepsie</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Insomnie, fatigue</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Sciatique, douleur articulaire</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Entorse, fracture, goutte</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Hernie discale, lumbago</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Ostéoporose, tendinite, torticolis</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Problèmes de peau (eczéma, psoriasis)</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Pathologies des yeux</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Acouphène</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Troubles cardio-vasculaires</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Troubles respiratoires</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Troubles digestifs</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Troubles du système urinaire</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Endométriose, fibrome</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Ménopause</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-accent text-xs mr-2 mt-1">
+                          <span className="text-pink-500 text-xs mr-2 mt-1">
                             ●
                           </span>
                           <span>Diabète, problèmes de thyroïde</span>
@@ -261,8 +273,8 @@ export default function Services() {
                     </div>
 
                     <div className="bg-primary-light/10 p-5 rounded-xl shadow-sm">
-                      <h4 className="text-lg font-semibold text-primary-dark mb-3 flex items-center">
-                        <span className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mr-2 text-xs text-accent">
+                      <h4 className="text-lg font-semibold text-pink-600 mb-3 flex items-center">
+                        <span className="w-6 h-6 rounded-full bg-pink-100 flex items-center justify-center mr-2 text-xs text-pink-500">
                           ✓
                         </span>
                         Pour les enfants
@@ -332,8 +344,8 @@ export default function Services() {
                     </div>
 
                     <div className="bg-primary-light/10 p-5 rounded-xl shadow-sm">
-                      <h4 className="text-lg font-semibold text-primary-dark mb-3 flex items-center">
-                        <span className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mr-2 text-xs text-accent">
+                      <h4 className="text-lg font-semibold text-pink-600 mb-3 flex items-center">
+                        <span className="w-6 h-6 rounded-full bg-pink-100 flex items-center justify-center mr-2 text-xs text-pink-500">
                           ✓
                         </span>
                         En oncologie
@@ -554,28 +566,28 @@ export default function Services() {
               <div className="h-2 bg-gradient-to-r from-primary to-accent"></div>
               <div className="p-5 flex flex-col h-full">
                 <div className="flex items-center mb-3">
-                  <div className="w-10 h-10 rounded-full bg-primary-light/30 flex items-center justify-center mr-3">
-                    <span className="text-accent text-sm">✿</span>
+                  <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center mr-3">
+                    <span className="text-pink-500 text-sm">✿</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-primary-dark">
+                  <h3 className="text-lg font-semibold text-pink-600">
                     {service.title}
                   </h3>
                 </div>
 
-                <div className="bg-accent/10 px-2 py-1 rounded-md inline-block w-fit mb-3">
-                  <p className="text-xs font-medium text-accent">
+                <div className="bg-pink-100 px-2 py-1 rounded-md inline-block w-fit mb-3">
+                  <p className="text-xs font-medium text-pink-600">
                     {service.price}
                   </p>
                 </div>
 
-                <div className="text-sm text-text-light mb-4 overflow-auto flex-grow">
+                <div className="text-sm text-gray-700 mb-4 overflow-auto flex-grow">
                   <p>{service.description}</p>
                 </div>
 
-                <div className="mt-auto flex justify-between items-center pt-3 border-t border-primary-light/20">
+                <div className="mt-auto flex justify-between items-center pt-3 border-t border-pink-200">
                   <a
                     href="#contact"
-                    className="text-primary hover:text-accent transition-colors text-sm flex items-center"
+                    className="text-pink-500 hover:text-pink-600 transition-colors text-sm flex items-center"
                   >
                     Réserver <span className="ml-1">→</span>
                   </a>
@@ -590,7 +602,7 @@ export default function Services() {
                             activeService === service.id ? null : service.id
                           )
                         }
-                        className="text-accent-light hover:text-accent transition-colors text-xs"
+                        className="text-pink-400 hover:text-pink-600 transition-colors text-xs"
                       >
                         {activeService === service.id
                           ? "Moins d'infos"
@@ -600,10 +612,10 @@ export default function Services() {
                 </div>
 
                 {activeService === service.id && (
-                  <div className="mt-4 pt-3 border-t border-primary-light/20 animate-fade-in">
+                  <div className="mt-4 pt-3 border-t border-pink-200 animate-fade-in">
                     {service.forfait && (
-                      <div className="mb-2 text-xs text-text-light bg-secondary-light/10 p-2 rounded">
-                        <span className="font-medium text-primary-dark">
+                      <div className="mb-2 text-xs text-gray-700 bg-pink-50 p-2 rounded">
+                        <span className="font-medium text-pink-600">
                           Forfait :
                         </span>{" "}
                         {service.forfait.split("-")[1]}
@@ -611,8 +623,8 @@ export default function Services() {
                     )}
 
                     {service.note && (
-                      <div className="mb-2 text-xs text-text-light bg-secondary-light/10 p-2 rounded">
-                        <span className="font-medium text-primary-dark">
+                      <div className="mb-2 text-xs text-gray-700 bg-pink-50 p-2 rounded">
+                        <span className="font-medium text-pink-600">
                           Note :
                         </span>{" "}
                         {service.note}
@@ -621,15 +633,15 @@ export default function Services() {
 
                     {service.forfaits && (
                       <div className="space-y-1">
-                        <p className="text-xs font-medium text-primary-dark mb-1">
+                        <p className="text-xs font-medium text-pink-600 mb-1">
                           Forfaits disponibles :
                         </p>
                         {service.forfaits.map((forfait, i) => (
                           <div
                             key={i}
-                            className="text-xs text-text-light flex items-start gap-1"
+                            className="text-xs text-gray-700 flex items-start gap-1"
                           >
-                            <span className="text-accent">•</span>
+                            <span className="text-pink-500">•</span>
                             <span>{forfait}</span>
                           </div>
                         ))}
@@ -638,15 +650,15 @@ export default function Services() {
 
                     {service.details && (
                       <div className="space-y-1 mt-2">
-                        <p className="text-xs font-medium text-primary-dark mb-1">
+                        <p className="text-xs font-medium text-pink-600 mb-1">
                           Détails :
                         </p>
                         {service.details.map((detail, i) => (
                           <div
                             key={i}
-                            className="text-xs text-text-light flex items-start gap-1"
+                            className="text-xs text-gray-700 flex items-start gap-1"
                           >
-                            <span className="text-accent">•</span>
+                            <span className="text-pink-500">•</span>
                             <span>{detail}</span>
                           </div>
                         ))}

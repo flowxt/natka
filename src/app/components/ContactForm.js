@@ -176,7 +176,7 @@ export default function ContactForm() {
                   <div className="flex items-center mb-2 font-medium text-primary-dark">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2 text-accent"
+                      className="h-5 w-5 mr-2 text-pink-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -213,8 +213,8 @@ export default function ContactForm() {
                     <div
                       className={`absolute left-4 top-4 transition-all duration-300 ${
                         activeField === "nom"
-                          ? "text-accent scale-110"
-                          : "text-primary/60"
+                          ? "text-pink-500 scale-110"
+                          : "text-gray-400"
                       }`}
                     >
                       <svg
@@ -259,7 +259,7 @@ export default function ContactForm() {
                   <div className="flex items-center mb-2 font-medium text-primary-dark">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2 text-accent"
+                      className="h-5 w-5 mr-2 text-pink-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -294,8 +294,8 @@ export default function ContactForm() {
                     <div
                       className={`absolute left-4 top-4 transition-all duration-300 ${
                         activeField === "email"
-                          ? "text-accent scale-110"
-                          : "text-primary/60"
+                          ? "text-pink-500 scale-110"
+                          : "text-gray-400"
                       }`}
                     >
                       <svg
@@ -337,7 +337,7 @@ export default function ContactForm() {
                   <div className="flex items-center mb-2 font-medium text-primary-dark">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2 text-accent"
+                      className="h-5 w-5 mr-2 text-pink-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -372,8 +372,8 @@ export default function ContactForm() {
                     <div
                       className={`absolute left-4 top-4 transition-all duration-300 ${
                         activeField === "telephone"
-                          ? "text-accent scale-110"
-                          : "text-primary/60"
+                          ? "text-pink-500 scale-110"
+                          : "text-gray-400"
                       }`}
                     >
                       <svg
@@ -414,7 +414,7 @@ export default function ContactForm() {
                   <div className="flex items-center mb-2 font-medium text-primary-dark">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2 text-accent"
+                      className="h-5 w-5 mr-2 text-pink-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -449,8 +449,8 @@ export default function ContactForm() {
                     <div
                       className={`absolute left-4 top-4 transition-all duration-300 ${
                         activeField === "message"
-                          ? "text-accent scale-110"
-                          : "text-primary/60"
+                          ? "text-pink-500 scale-110"
+                          : "text-gray-400"
                       }`}
                     >
                       <svg
@@ -575,10 +575,10 @@ export default function ContactForm() {
               {/* Options de contact alternatif */}
               <div className="mt-8 pt-6 border-t border-primary-light/20 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div className="flex items-center">
-                  <div className="bg-primary/10 rounded-full p-3 mr-4">
+                  <div className="bg-pink-50 rounded-full p-3 mr-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-primary"
+                      className="h-6 w-6 text-pink-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -593,17 +593,17 @@ export default function ContactForm() {
                   </div>
                   <a
                     href="tel:+33760351575"
-                    className="text-primary-dark hover:text-primary transition-colors"
+                    className="text-gray-700 hover:text-pink-500 transition-colors"
                   >
                     06 01 49 93 27
                   </a>
                 </div>
 
                 <div className="flex items-center">
-                  <div className="bg-primary/10 rounded-full p-3 mr-4">
+                  <div className="bg-pink-50 rounded-full p-3 mr-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-primary"
+                      className="h-6 w-6 text-pink-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -618,7 +618,7 @@ export default function ContactForm() {
                   </div>
                   <a
                     href="mailto:nathaliebouph@gmail.com"
-                    className="text-primary-dark hover:text-primary transition-colors"
+                    className="text-gray-700 hover:text-pink-500 transition-colors"
                   >
                     nathalieboupha@gmail.com
                   </a>
