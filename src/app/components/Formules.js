@@ -33,17 +33,36 @@ export default function Formules() {
               <div className="h-2 bg-gradient-to-r from-primary to-accent"></div>
 
               <div className="p-5 flex flex-col h-full">
-                <div className="mb-2 relative">
-                  <h3 className="text-lg font-bold text-primary-dark group-hover:text-accent transition-colors">
+                <div className="mb-4 relative">
+                  <h3 className="text-lg font-bold text-primary-dark group-hover:text-accent transition-colors pr-16">
                     {formule.title}
                   </h3>
-                  <div className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full px-2 py-1 font-medium">
+
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "-10px",
+                      right: "-10px",
+                      backgroundColor: "#E91E63",
+                      color: "white",
+                      padding: "8px 14px",
+                      borderRadius: "8px",
+                      fontWeight: "bold",
+                      fontSize: "16px",
+                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                      border: "2px solid white",
+                    }}
+                  >
                     {formule.price.split("-")[0].trim()}
                   </div>
                 </div>
 
-                <p className="text-sm text-text-light mb-3 line-clamp-2">
+                <p className="text-sm text-text-light mb-3">
                   {formule.description}
+                </p>
+
+                <p className="text-xs text-primary-dark mb-3 italic">
+                  <strong>Objectif:</strong> {formule.objectif}
                 </p>
 
                 <div className="mt-auto pt-3 border-t border-dashed border-primary-light/50">
@@ -51,7 +70,8 @@ export default function Formules() {
                     <span className="text-xs text-accent bg-primary-light/10 px-2 py-1 rounded-full">
                       {formule.price.includes("min")
                         ? formule.price.split("-")[1].trim()
-                        : "Formule complète"}
+                        : formule.price.split("-")[1].trim() ||
+                          "Formule complète"}
                     </span>
                     <a
                       href="#contact"

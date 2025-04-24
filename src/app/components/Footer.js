@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import LegalModal from "./LegalModal";
 
 export default function Footer() {
+  const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
+
   return (
     <footer className="footer-gradient text-white py-12 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/image/pied.png')] opacity-10 bg-center bg-cover mix-blend-overlay"></div>
@@ -47,7 +51,7 @@ export default function Footer() {
               © {new Date().getFullYear()} Natka - La clef du bien-être
             </p>
             <p className="text-white/90 text-sm">Tous droits réservés</p>
-            <div className="flex space-x-6 mt-4">
+            <div className="flex items-center space-x-6 mt-4">
               <a
                 href="https://www.instagram.com/natka_la_clef_du_bien_etre"
                 target="_blank"
@@ -68,6 +72,12 @@ export default function Footer() {
                   ></path>
                 </svg>
               </a>
+              <button
+                onClick={() => setIsLegalModalOpen(true)}
+                className="text-white/90 hover:text-white underline text-sm transition-colors"
+              >
+                Mentions légales
+              </button>
             </div>
           </div>
         </div>
@@ -149,6 +159,12 @@ export default function Footer() {
       <div className="absolute bottom-5 left-5 w-20 h-20 bg-white/5 rounded-full"></div>
       <div className="absolute top-20 right-10 w-16 h-16 bg-white/5 rounded-full"></div>
       <div className="absolute bottom-20 right-1/4 w-12 h-12 bg-white/5 rounded-full"></div>
+
+      {/* Modale Mentions Légales */}
+      <LegalModal
+        isOpen={isLegalModalOpen}
+        onClose={() => setIsLegalModalOpen(false)}
+      />
     </footer>
   );
 }

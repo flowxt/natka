@@ -620,7 +620,7 @@ export default function ContactForm() {
                     href="mailto:nathaliebouph@gmail.com"
                     className="text-primary-dark hover:text-primary transition-colors"
                   >
-                    nathaliebouph@gmail.com
+                    nathalieboupha@gmail.com
                   </a>
                 </div>
               </div>
