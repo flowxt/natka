@@ -126,7 +126,7 @@ export default function Services() {
                   </p>
                   <div className="flex justify-center mt-6">
                     <Image
-                      src="/image/pieds.jpg"
+                      src="/image/pied2.jpg"
                       alt="Carte des zones réflexes"
                       width={400}
                       height={300}
