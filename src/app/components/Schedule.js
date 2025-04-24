@@ -18,7 +18,7 @@ export default function Schedule() {
           <div className="schedule-card animate-fade-in">
             <div className="schedule-card-badge"></div>
             <div className="schedule-card-icon">Lu-Je</div>
-            <h3 className="day-label">Lundi à Jeudi</h3>
+            <h3 className="day-label">Lundi au Jeudi</h3>
             <p className="time-label">17h - 19h</p>
           </div>
 
