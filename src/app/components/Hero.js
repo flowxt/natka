@@ -29,7 +29,7 @@ export default function Hero() {
           <div className="animate-fade-in backdrop-blur-sm bg-white/5 p-8 rounded-3xl border border-white/10 shadow-2xl">
             <div className="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 shadow-sm">
               <span className="text-white font-medium">
-                Votre bien-être est notre priorité
+                Votre bien-être est ma priorité
               </span>
             </div>
 
